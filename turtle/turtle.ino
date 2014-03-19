@@ -36,7 +36,7 @@ void setup()
     digitalWrite(led, HIGH);
     delay(100);
     digitalWrite(led, LOW);
-    delay(100);
+    delay(200);
   }
 
   penUp();
@@ -82,7 +82,7 @@ void backward(int units) {
 
 int angleToTimeRight(int units) {
   if (units <= 90) {
-    return 6.8*units;
+    return 7.2*units;
   } 
   if (units <= 180) {
     return 6.4*units;
@@ -94,7 +94,7 @@ int angleToTimeRight(int units) {
 
 int angleToTimeLeft(int units) {
   if (units <= 90) {
-    return 6.4*units;
+    return 7.2*units;
   } 
   if (units <= 180) {
     return 6.0*units;
