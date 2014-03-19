@@ -20,7 +20,7 @@ def send(action, *args):
 
     print(method, url, data)
     session = requests.session()
-    response = session.request(method, url, data=data)
+    response = session.request(method, url, data=data, timeout=10)
     print(response)
     print(response.text)
 
@@ -56,16 +56,16 @@ def pendown():
 
 
 def almost_rectangle_test():
-    forward(50)
+    forward(10)
 
     left(90)
-    forward(50)
+    forward(10)
 
     penup()
     right(90)
-    backward(50)
+    backward(10)
 
     pendown()
     left(90)
-    backward(50)
+    backward(10)
 
