@@ -42,7 +42,7 @@ def left(angle):
 def right(angle):
     print('right', angle)
     turtle.right(angle)
-    send('rotate', -angle)
+    send('rotate', angle)
     
 def penup():
     print('penup')
