@@ -1,14 +1,19 @@
-//#define ON_SPARK 1
+#define ON_SPARK 1
 
 #ifndef ON_SPARK
 #include <Servo.h> 
 #endif
 
-int servo1Pin = 9;
-int servo2Pin = 10;
-int penPin = 11;
+int servo1Pin = A0;
+int servo2Pin = A1;
+int penPin = D0;
 boolean isPenUp = true;
-boolean compensate = false;
+boolean compensate = true;
+int compensateLen = 6;
+
+#ifdef ON_SPARK
+int led = D7; 
+#endif
 
 Servo s1;  
 Servo s2;  
@@ -23,13 +28,24 @@ void setup()
 #ifdef ON_SPARK
   Spark.function("forward", cmdForward);
   Spark.function("backward", cmdBackward);
-  Spark.function("right", cmdRight);
-  Spark.function("left", cmdLeft);
-  Spark.function("up", cmdPenUp);
-  Spark.function("down", cmdPenDown);
+//   Spark.function("right", cmdRight);
+//   Spark.function("left", cmdLeft);
+  Spark.function("penup", cmdPenUp);
+  Spark.function("pendown", cmdPenDown);
+  pinMode(led, OUTPUT);
 #endif
 
+  for(int i = 0; i < 10; ++i){
+    digitalWrite(led, HIGH);
+    delay(100);
+    digitalWrite(led, LOW);
+    delay(100);
+  }
+
   penUp();
+  forward(2);
+  backward(2);
+  penDown();
 } 
 
 void servoFw(Servo s) {
@@ -96,7 +112,7 @@ void right(int units) {
 
   if (compensate) {
     penUp();
-    forward(5);
+    forward(compensateLen);
   }
 
   servoFw(s1);
@@ -106,7 +122,7 @@ void right(int units) {
   delay(500);
 
   if (compensate) {
-    backward(5);
+    backward(compensateLen);
     if (!wasPenUp) {
       penDown(); 
     } 
@@ -118,7 +134,7 @@ void left(int units) {
 
   if (compensate) {
     penUp();
-    forward(5);
+    forward(compensateLen);
   }
 
   servoBk(s1);
@@ -128,7 +144,7 @@ void left(int units) {
   delay(500);
 
   if (compensate) {
-    backward(5);
+    backward(compensateLen);
     if (!wasPenUp) {
       penDown(); 
     } 
@@ -198,4 +214,5 @@ int cmdPenDown(String param) {
   return 1;
 }
 #endif
+
 
