@@ -32,7 +32,7 @@ void setup()
   pinMode(led, OUTPUT);
 #endif
 
-  for(int i = 0; i < 10; ++i){
+  for(int i = 0; i < 5; ++i){
     digitalWrite(led, HIGH);
     delay(100);
     digitalWrite(led, LOW);
@@ -172,7 +172,7 @@ int cmdMove(String param) {
     return 1;
   } 
   else if (units < 0){
-    backword(-units);
+    backward(-units);
     return 1;
   } 
   else {
