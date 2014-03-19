@@ -26,16 +26,13 @@ void setup()
   pen.attach(penPin);
 
 #ifdef ON_SPARK
-  Spark.function("forward", cmdForward);
-  Spark.function("backward", cmdBackward);
-//   Spark.function("right", cmdRight);
-//   Spark.function("left", cmdLeft);
-  Spark.function("penup", cmdPenUp);
-  Spark.function("pendown", cmdPenDown);
+  Spark.function("move", cmdMove);
+  Spark.function("rotate", cmdRotate);
+  Spark.function("penmove", cmdPenMove);
   pinMode(led, OUTPUT);
 #endif
 
-  for(int i = 0; i < 10; ++i){
+  for(int i = 0; i < 5; ++i){
     digitalWrite(led, HIGH);
     delay(100);
     digitalWrite(led, LOW);
@@ -163,56 +160,57 @@ void penDown() {
   delay(500);
 }
 
-void loop() 
-{ 
-  //  forward(1);
-  //  delay(1000);
-  //  backward(1);
-  //  delay(1000);
+void loop() { 
+
 } 
 
 #ifdef ON_SPARK
-int cmdForward(String param) {
+int cmdMove(String param) {
   int units = param.toInt();
-  if (units != 0) {
+  if (units > 0) {
     forward(units);
+    return 1;
+  } 
+  else if (units < 0){
+    backward(-units);
+    return 1;
+  } 
+  else {
+    return -1;
   }
-  return 1;
 }
 
-int cmdBackward(String param) {
+int cmdRotate(String param) {
   int units = param.toInt();
-  if (units != 0) {
-    backward(units);
-  }
-  return 1;
-}
-
-int cmdRight(String param) {
-  int units = param.toInt();
-  if (units != 0) {
+  if (units > 0) {
     right(units);
+    return 1;
+  } 
+  else if (units < 0){
+    left(-units);
+    return 1;
+  } 
+  else {
+    return -1;
   }
-  return 1;
 }
 
-int cmdLeft(String param) {
+int cmdPenMove(String param) {
   int units = param.toInt();
-  if (units != 0) {
-    left(units);
+  if (units > 0) {
+    penUp();
+    return 1;
+  } 
+  else if (units < 0){
+    penDown();
+    return 1;
+  } 
+  else {
+    return -1;
   }
-  return 1;
 }
 
-int cmdPenUp(String param) {
-  penUp();
-  return 1;
-}
-
-int cmdPenDown(String param) {
-  penDown();
-  return 1;
-}
 #endif
+
 
 
