@@ -4,7 +4,7 @@ int servo1Pin = 9;
 int servo2Pin = 10;
 int penPin = 11;
 boolean isPenUp = true;
-boolean compensate = true;
+boolean compensate = false;
  
 Servo s1;  
 Servo s2;  
@@ -16,7 +16,7 @@ void setup()
   s2.attach(servo2Pin); 
   pen.attach(penPin);
 
-  penDown();
+  penUp();
 
 //penDown();  
 //  penUp();
@@ -25,11 +25,10 @@ void setup()
 //  delay(1000);
 //  left(90);
 
-forward(10);
-right(90);
-forward(10);
-//delay(1000);
-//backward(10);
+//forward(10);
+//right(90);
+//forward(10);
+
 } 
  
 void servoFw(Servo s) {
@@ -114,7 +113,7 @@ void left(int units) {
   
   if (compensate) {
     penUp();
-    forward(7);
+    forward(5);
   }
   
   servoBk(s1);
@@ -124,7 +123,7 @@ void left(int units) {
   delay(500);
   
   if (compensate) {
-    backward(7);
+    backward(5);
     if (!wasPenUp) {
        penDown(); 
     } 
