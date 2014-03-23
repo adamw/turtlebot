@@ -1,0 +1,7 @@
+.turtlebot {
+    padding-top: 100px;
+}
+
+#sparkNotConfiguredMessage {
+    display: none;
+}

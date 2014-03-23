@@ -1,0 +1,5 @@
+// rename to spark.js and fill in your Spark device ID and API access token
+var spark = {
+    deviceId: '',
+    accessToken: ''
+};
